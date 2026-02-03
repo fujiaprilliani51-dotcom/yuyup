@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person 💖</title>
+    <style>
+        :root {
+            --pastel-pink: #ffd1dc;
+            --soft-white: #fff5f8;
+            --heart-red: #ff8fab;
+            --accent-pink: #ffafcc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--soft-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Doodle Decorations */
+        .doodle {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Content Wrapper */
+        .container {
+            max-width: 600px;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 { color: var(--heart-red); font-size: 2.5rem; margin-bottom: 10px; }
+        p { font-size: 1.1rem; }
+
+        /* Interactive Button */
+        .love-btn {
+            background-color: var(--heart-red);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 20px 0;
+        }
+
+        .love-btn:hover {
+            background-color: var(--accent-pink);
+            transform: scale(1.1);
+        }
+
+        .love-btn:active { transform: scale(0.9); }
+
+        /* Game Section */
+        .game-section {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            border: 3px dashed var(--pastel-pink);
+        }
+
+        input {
+            padding: 10px;
+            border: 2px solid var(--pastel-pink);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: var(--accent-pink);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Result Area */
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .meme-img {
+            max-width: 100%;
+            border-radius: 20px;
+            border: 5px solid var(--pastel-pink);
+        }
+
+        .message { font-weight: bold; color: var(--heart-red); margin-top: 10px; }
+
+        /* Floating Biceps Animation */
+        .bicep-emoji { font-size: 40px; position: absolute; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="doodle" style="top: 10%; left: 10%;">❤️</div>
+        <div class="doodle" style="top: 20%; right: 15%; animation-delay: 1s;">💪✨</div>
+        <div class="doodle" style="bottom: 15%; left: 5%; animation-delay: 0.5s;">💗</div>
+
+        <h1>Hi Favorite Person! 🌸</h1>
+        <p>I made something special just for you...</p>
+
+        <button class="love-btn" onclick="celebrate()">Press if u love me! ✨</button>
+
+        <div class="game-section">
+            <h3>🔐 Secret Code</h3>
+            <p>Enter the secret date to see a surprise:</p>
+            <input type="text" id="secretInput" placeholder="Enter code here...">
+            <button class="submit-btn" onclick="checkCode()">Open</button>
+            <p id="error-msg" style="color: #ff4d6d; display: none; font-size: 0.9rem; margin-top: 10px;">try again my love! 🥺</p>
+            
+            <div id="result">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3A4dzJubXN6bmM1Ym04em51YW52bmR4YmpxZzJ6Z3V6Z3V6Z3V6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKVUn7iM8FMEU24/giphy.gif" alt="Meme Lucu" class="meme-img">
+                <p class="message">✨ NOW SEND ME UR BICEPS! 💪💖 ✨</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Start music on first click
+        document.body.addEventListener('click', () => {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.3;
+            music.play().catch(() => {}); 
+        }, { once: true });
+
+        function celebrate() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff8fab', '#ffafcc', '#ffd1dc']
+            });
+            alert("I LOVE YOU MORE! ❤️💪");
+        }
+
+        function checkCode() {
+            const code = document.getElementById('secretInput').value;
+            const resultDiv = document.getElementById('result');
+            const errorMsg = document.getElementById('error-msg');
+
+            if (code === "311225") {
+                resultDiv.style.display = "block";
+                errorMsg.style.display = "none";
+                confetti({
+                    particleCount: 100,
+                    scalar: 2,
+                    shapes: ['text'],
+                    shapeOptions: { text: { value: ['💪', '❤️'] } }
+                });
+            } else {
+                resultDiv.style.display = "none";
+                errorMsg.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
